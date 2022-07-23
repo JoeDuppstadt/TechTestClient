@@ -1,21 +1,33 @@
 <template>
 <div>
 
-  <h1 id ="header" name = 'header' innertext = "as"  ></h1>
-  <!-- return false stops the page from refreshing after an alert is thrown -->
-  <form onsubmit="return false">
-    <label for="name">Name:</label><br>
-    <input type="text" name = "name" v-model = "name" placeholder="Insert name from db here" maxlength = "50" /><br>
-
-    <label for="description">Description:</label><br>
-    <textarea e="description" name = "description" v-model = "description" placeholder="Insert description from db here" maxlength = "500" /><br>
-    
-    <label for="ReleaseYear">Release Year:</label><br>
-    <input type="text" name = "ReleaseYear" v-model = "releaseYear" placeholder="Insert release year from db here" maxlength = "4" /><br>
-    
-    <!-- <button @click="save">Save</button> -->
-    <input @click="save" type="image" src="https://www.freepngimg.com/thumb/submit_button/25497-9-submit-button-photos.png" name="submit" width="100" height="48" alt="submit"/>  
-    <input @click="homeButtonClicked" type="image" src="http://www.clker.com/cliparts/H/S/q/A/l/E/home-button-png-hi.png" name="submit" width="100" height="48" alt="submit"/>  
+  <div class="edit-box">
+    <form>
+      <div class="record-box">
+        <input placeholder="Name" name="" required="" maxlength = "50" v-model = "name">
+      </div>
+      <div class="record-box">
+        <input placeholder="Release Year" name="" required="" maxlength = "4" v-model = "releaseYear">
+      </div>
+        <div class="record-box">
+        <input placeholder="Description" name="" maxlength="500" v-model = "description">
+      </div>
+      <a @click="save">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Save
+      </a>
+      <a @click="homeButtonClicked">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Home
+      </a>
+    </form>
+  </div>
 
   </form>
   </div>
@@ -24,10 +36,7 @@
 <script>
 export default {
   data () { 
-    console.log("here")
-    console.log(determineButtonClick())
     if(determineButtonClick()){ 
-      console.log('here1')
       let x = hitAPI('GET');
       return {
         name: x.name,
@@ -172,7 +181,7 @@ body {
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-  background: rgba(0,0,0,.5);
+  background: #f3f3f3;
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0,0,0,.6);
   border-radius: 10px;
@@ -193,14 +202,14 @@ body {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
-  color: #fff;
+  color: #009879;
   margin-bottom: 30px;
   border: none;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #009879;
   outline: none;
   background: transparent;
 }
-.login-box .record-box label {
+.edit-box .record-box label {
   position: absolute;
   top:0;
   left: 0;
@@ -211,19 +220,19 @@ body {
   transition: .5s;
 }
 
-.login-box .record-box input:focus ~ label,
-.login-box .record-box input:valid ~ label {
+.edit-box .record-box input:focus ~ label,
+.edit-box .user-box input:valid ~ label {
   top: -20px;
   left: 0;
-  color: #03e9f4;
+  color: #009879;
   font-size: 12px;
 }
 
-.login-box form a {
+.edit-box form a {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
-  color: #03e9f4;
+  color: #009879;
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
@@ -233,27 +242,27 @@ body {
   letter-spacing: 4px
 }
 
-.login-box a:hover {
-  background: #03e9f4;
+.edit-box a:hover {
+  background: #009879;
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #03e9f4,
-              0 0 25px #03e9f4,
-              0 0 50px #03e9f4,
-              0 0 100px #03e9f4;
+  box-shadow: 0 0 5px #009879,
+              0 0 25px #009879,
+              0 0 50px #009879,
+              0 0 100px #009879;
 }
 
-.login-box a span {
+.edit-box a span {
   position: absolute;
   display: block;
 }
 
-.login-box a span:nth-child(1) {
+.edit-box a span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
+  background: linear-gradient(90deg, transparent, #009879);
   animation: btn-anim1 1s linear infinite;
 }
 
@@ -266,12 +275,12 @@ body {
   }
 }
 
-.login-box a span:nth-child(2) {
+.edit-box a span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
+  background: linear-gradient(180deg, transparent, #009879);
   animation: btn-anim2 1s linear infinite;
   animation-delay: .25s
 }
@@ -285,12 +294,12 @@ body {
   }
 }
 
-.login-box a span:nth-child(3) {
+.edit-box a span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
+  background: linear-gradient(270deg, transparent, #009879);
   animation: btn-anim3 1s linear infinite;
   animation-delay: .5s
 }
@@ -304,12 +313,12 @@ body {
   }
 }
 
-.login-box a span:nth-child(4) {
+.edit-box a span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
+  background: linear-gradient(360deg, transparent, #009879);
   animation: btn-anim4 1s linear infinite;
   animation-delay: .75s
 }
