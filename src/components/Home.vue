@@ -59,7 +59,7 @@ export default {
       this.$router.push('/CreateNewRecord');
     },
     editButtonClicked(){
-      this.$router.push('/view');
+      this.$router.push('/viewRecord/'+id);
     },
     deleteButtonClicked(id){
       try{
@@ -77,7 +77,7 @@ export default {
   
     },
     editButtonClicked(id){
-      this.$router.push("/viewRecord/"+ id);
+      this.$router.push("/view/"+ id);
     }
 
   }
@@ -93,7 +93,7 @@ export default {
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
     margin-left: auto;
     margin-right: auto;
 }
@@ -124,5 +124,6 @@ export default {
     font-weight: bold;
     color: #009879;
 }
+
 
 </style>

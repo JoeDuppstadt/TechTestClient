@@ -8,8 +8,8 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/viewRecord/:id',
-      name: 'viewRecord',
+      path: '/view/:id',
+      name: 'view',
       component: addrecord
     },
     {
