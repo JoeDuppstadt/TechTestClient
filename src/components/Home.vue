@@ -23,7 +23,13 @@
         </tr>
       </tbody>
     </table>
+
+  <button @click="addButtonClicked">Add Record</button>
+
   </div>
+
+
+
 </template>
 
 <script>
@@ -37,13 +43,12 @@ export default {
       xmlHttp.open( "GET", "https://localhost:44305/TechTest", false ); // false for synchronous request
       xmlHttp.send( null );
       return JSON.parse(xmlHttp.responseText); 
-      //return this.allScores.slice().sort(function(a, b) {
-      //  return b.score - a.score;
-      //});
     },
   },
   methods: {
-    
+    addButtonClicked(){
+      this.$router.push('/CreateNewRecord');
+    }
   },
 };
 </script>

@@ -18,8 +18,8 @@ export default new Router({
       component: Home
     },
     {
-      path: '/create',
-      name: 'create',
+      path: '/CreateNewRecord',
+      name: 'CreateNewRecord',
       component: addrecord
     },
 
