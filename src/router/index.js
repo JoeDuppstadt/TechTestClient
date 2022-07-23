@@ -8,9 +8,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/view',
-      name: 'view',
-      component: viewrecord
+      path: '/viewRecord/:id',
+      name: 'viewRecord',
+      component: addrecord
     },
     {
       path: '/home',
