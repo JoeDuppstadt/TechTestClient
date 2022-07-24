@@ -2,15 +2,15 @@
 <div>
 
   <div class="edit-box">
-    <form>
+    <form >
       <div class="record-box">
         <input placeholder="Name" name="" required="" maxlength = "50" v-model = "name">
       </div>
       <div class="record-box">
-        <input placeholder="Release Year" name="" required="" maxlength = "4" v-model = "releaseYear">
+        <input placeholder="Release Year" name="" required="" maxlength = "4" v-model = "releaseYear"  >
       </div>
         <div class="record-box">
-        <input placeholder="Description" name="" maxlength="500" v-model = "description">
+        <input placeholder="Description" name="" maxlength="500" v-model = "description" >
       </div>
       <a @click="save">
         <span></span>
@@ -26,6 +26,13 @@
         <span></span>
         Home
       </a>
+      <a @click="deleteButtonClicked" v-if="deleteButtonHidden"    >
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Delete
+      </a>
     </form>
   </div>
 
@@ -36,27 +43,33 @@
 <script>
 export default {
   data () { 
-    if(determineButtonClick()){ 
+    if(determineButtonClick()){
+
       let x = hitAPI('GET');
       return {
         name: x.name,
         description:x.description,
-        releaseYear: x.releaseYear
+        releaseYear: x.releaseYear,
+        deleteButtonHidden: true,
       }
+
     }
     // if the add new record button is clicked
     else{
       return {
         name: '',
         description: '',
-        releaseYear: ''
+        releaseYear: '',
+        deleteButtonHidden: false,
       }
+      
     }
 
   },
   methods:{
     save(){
-      if (validateInput(this.name, this.releaseYear)){
+      if (validateNameInput(this.name) && validateYearInput(this.releaseYear)){
+
         if (determineButtonClick()){
           hitAPI('PUT' ,this.name, this.description, this.releaseYear, this.$router);
         }
@@ -68,9 +81,10 @@ export default {
     homeButtonClicked(){
       this.$router.push('/home');
 
-    }
-
-    
+    },
+    deleteButtonClicked(){
+      hitAPI('DELETE', this.name, this.description, this.releaseYear, this.$router)
+    },
   }
 }
 
@@ -82,7 +96,8 @@ function hitAPI(request, name, description, releaseYear, router){
   }
 
   if(request == 'POST' || request == 'PUT'){
-    validateInput(name, releaseYear);
+    validateNameInput(name);
+    validateYearInput(releaseYear);
   }
 
   var xmlHttp = new XMLHttpRequest();
@@ -90,14 +105,15 @@ function hitAPI(request, name, description, releaseYear, router){
   xmlHttp.setRequestHeader('Content-Type', 'application/json');
   if(request == 'GET'){
     xmlHttp.send( null );
-  }else if (request == 'POST'){
+  }
+  else if (request == 'POST'){
     xmlHttp.send(JSON.stringify({
               name: name,
               description: description,
               releaseYear: parseInt(releaseYear)
           }));
   }
-  else{
+  else if (request == 'PUT'){
     xmlHttp.send(JSON.stringify({
               id: parseInt(getIDFromURL()),
               name: name,
@@ -105,6 +121,12 @@ function hitAPI(request, name, description, releaseYear, router){
               releaseYear: parseInt(releaseYear)
           }));
   }
+  else{
+        xmlHttp.send(JSON.stringify({
+              id: parseInt(getIDFromURL()),
+          }));
+  }
+  
   if (parseInt(xmlHttp.status) == 200){
     console.log("Record submitted successfully")
     if (request != 'GET')
@@ -113,7 +135,6 @@ function hitAPI(request, name, description, releaseYear, router){
   else{
     console.log("Record failed to submit")
     alert("Unable to create new record. Please try again");
-    locatuion.reload();
   }
   if(request == 'GET'){
     return JSON.parse(xmlHttp.responseText); 
@@ -121,12 +142,16 @@ function hitAPI(request, name, description, releaseYear, router){
 }
 
 
-function validateInput(name, year){
-  
+function validateNameInput(name){
   if (name == ""){
     alert("Name text box is empty");
     return false;
   }
+  return true;
+}
+
+function validateYearInput(year){  
+  console.log(year)
   if (year == ""){
     alert("Release year text box is empty");
     return false;
@@ -164,6 +189,8 @@ function getIDFromURL(){
 </script>
 
 <style scoped>
+
+
 html {
   height: 100%;
 }

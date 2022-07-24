@@ -22,8 +22,6 @@
           <td>
               <input  @click="editButtonClicked(entry.id)"  type="image" src="https://cdn-icons-png.flaticon.com/512/84/84380.png" name="submit" width="25" height="25" alt="submit"/>  
               <input  @click="deleteButtonClicked(entry.id)" type="image" src="https://www.pikpng.com/pngl/m/159-1591301_pc-icon-to-delete-comments-delete-icon-svg.png" name="submit" width="25" height="25" alt="submit"/> 
-
-
           </td>
         </tr>
       </tbody>
@@ -32,20 +30,11 @@
   <button @click="addButtonClicked">Add New Record</button>
 
   </div>
-
-
-
 </template>
 
-
-
 <script>
-//url = 'https://localhost:44305/TechTest'
 export default {
-  //url: 'https://localhost:44305/TechTest'
-
   name: "Home",
-  //data: () => ({ url: 'https://localhost:44305/TechTest', score: "", allScores: [] }),
   computed: {
     dbRecordList: function() {
       var xmlHttp = new XMLHttpRequest();
